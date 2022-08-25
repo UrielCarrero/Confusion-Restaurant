@@ -1,6 +1,13 @@
-import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Media, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, {Component} from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle, Media, Breadcrumb, BreadcrumbItem,
+    Modal, ModalHeader, ModalBody, Row, Col, Label, Input, Button } from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {Control, LocalForm, Errors} from 'react-redux-form';
+
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
 
 const RenderDish = ({dish}) => {
     if (dish != null){
@@ -22,51 +29,126 @@ const RenderDish = ({dish}) => {
         );
 }
 
-function RenderComments({comments})
+function RenderComments({comments}, {toggleModal})
 {
-    return( comments.map((comment) => {
+    return( 
+        comments.map((comment) => {
         return (
 
             <React.Fragment>
-                <Media className="text-left mt-3">{comment.comment}</Media>
-                <Media className="text-left mt-3">-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </Media>
+                <Media className="text-start mt-3">{comment.comment}</Media>
+                <Media className="text-start mt-3">-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </Media>
             </React.Fragment>
             );
         }
         )
+        
     );  
 }
 
 
-const RenderDishDetails = (props) => 
+class RenderDishDetails extends Component  
 {
-    return(
-        <div className="container">
-            <div className="row">
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <Link to="/menu">Menu</Link>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem active>
-                    {props.dish.name}
-                    </BreadcrumbItem>
-                </Breadcrumb>
-                <div className="col-12 text-left">
-                    <h3>{props.dish.name}</h3>
-                    <hr />
-                </div>
-            </div>
-            <div className="row">
-                <div  className="col-12 col-md-5 m-1">
-                    <RenderDish dish={props.dish} />
-                </div>
-                <div  className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} />
-                </div> 
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            isModalOpen: false
+        }
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });  
+    }
+
+    handleSubmit(values)
+    {
+        console.log(JSON.stringify(values));
+        alert(JSON.stringify(values));
+        this.toggleModal();
+    }
+
+    render(){
+        return(<div className="container">
+        <div className="row">
+            <Breadcrumb>
+                <BreadcrumbItem>
+                    <Link to="/menu">Menu</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>
+                {this.props.dish.name}
+                </BreadcrumbItem>
+            </Breadcrumb>
+            <div className="col-12 text-left">
+                <h3>{this.props.dish.name}</h3>
+                <hr />
             </div>
         </div>
+        <div className="row">
+            <div  className="col-12 col-md-5 m-1">
+                <RenderDish dish={this.props.dish} />
+            </div>
+            <div  className="col-12 col-md-5 m-1">
+                <RenderComments comments={this.props.comments} />
+                <Button onClick={this.toggleModal} className="submit mt-4">Submit Comment</Button>
+            </div> 
+        </div>
+        <div>
+            <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                <ModalBody>
+                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                        <Row className="form-group">
+                            <Col md={12}>
+                                <Label htmlFor="rating">Rating</Label>
+                                <Control.select model=".rating" id="rating" name="rating" className="form-control m-2">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Control.select>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Col md={12}>
+                                <Label htmlFor="name">Your Name</Label>
+                                <Control.text model=".name" name="name" id="name" 
+                                className="form-control m-2"
+                                validators={{
+                                    required, minLength: minLength(2), maxLength: maxLength(25)
+                                }}/>                            
+                            </Col>
+                            <Errors className='text-danger' model=".name" show="touched"
+                            messages={{
+                                required:"This field is mandatory ",
+                                minLength:"This field has to contain 2 characters at least ",
+                                maxLength:"This field has to contain less than 25 characters "
+                            }}></Errors>
+                        </Row>
+                        <Row className="form-group">
+                            <Col md={12}>
+                                <Label htmlFor="comment">Comment</Label>
+                                <Control.textarea model=".comment" name="comment" id="comment" rows="12" className="form-control m-2"/>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Col md={12}> 
+                                <Button className="submit" type="submit">Submit</Button>
+                            </Col>
+                        </Row>  
+                    </LocalForm>
+                </ModalBody>
+            </Modal>
+        </div>
+    </div> 
+    );
         
-    );     
+    } 
 }
 
 export default RenderDishDetails;

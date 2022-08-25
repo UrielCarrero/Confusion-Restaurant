@@ -12,7 +12,7 @@ const Menu = (props) => {
                     <Link to={`/menu/${dish.id}`} >
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
                         <CardImgOverlay>
-                            <CardTitle className="text-right font-weight-bold">{dish.name}</CardTitle>
+                            <CardTitle className="text-end text-dark"><strong>{dish.name}</strong></CardTitle>
                         </CardImgOverlay>
                     </Link>
                 </Card>
@@ -25,12 +25,12 @@ const Menu = (props) => {
         <div className="container">
             <div className="row">
                 <Breadcrumb>
-                    <BreadcrumbItem>
+                    <BreadcrumbItem >
                         <Link to="/home">Home</Link>
                     </BreadcrumbItem>
                     <BreadcrumbItem active>
                         Menu
-                    </BreadcrumbItem>
+                    </BreadcrumbItem >
                 </Breadcrumb>
                 <div className="col-12 text-left">
                     <h3>Menu</h3>
