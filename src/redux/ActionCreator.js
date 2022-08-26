@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { DISHES } from '../shared/dishes';
 
+
 export const addComment = (dishId, rating, author, comment) => {
     return({
         type: ActionTypes.ADD_COMMENT,
