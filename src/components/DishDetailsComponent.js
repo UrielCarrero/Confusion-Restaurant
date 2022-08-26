@@ -67,8 +67,8 @@ class RenderDishDetails extends Component
 
     handleSubmit(values)
     {
-        console.log(JSON.stringify(values));
         alert(JSON.stringify(values));
+        this.props.addComment(this.props.dish.id, values.rating, values.name, values.comment);
         this.toggleModal();
     }
 
@@ -105,12 +105,13 @@ class RenderDishDetails extends Component
                         <Row className="form-group">
                             <Col md={12}>
                                 <Label htmlFor="rating">Rating</Label>
-                                <Control.select model=".rating" id="rating" name="rating" className="form-control m-2">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <Control.select model=".rating" id="rating" name="rating" 
+                                className="form-control m-2" defaultValue="5">
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
                                 </Control.select>
                             </Col>
                         </Row>
@@ -133,8 +134,14 @@ class RenderDishDetails extends Component
                         <Row className="form-group">
                             <Col md={12}>
                                 <Label htmlFor="comment">Comment</Label>
-                                <Control.textarea model=".comment" name="comment" id="comment" rows="12" className="form-control m-2"/>
+                                <Control.textarea model=".comment" name="comment" 
+                                id="comment" rows="12" className="form-control m-2"
+                                validators={{required}}/>                            
                             </Col>
+                            <Errors className='text-danger' model=".name" show="touched"
+                            messages={{
+                                required:"This field is mandatory "
+                            }}></Errors>
                         </Row>
                         <Row className="form-group">
                             <Col md={12}> 

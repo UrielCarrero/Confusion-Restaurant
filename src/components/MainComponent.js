@@ -10,6 +10,8 @@ import RenderDishDetails from "./DishDetailsComponent";
 import { Component } from 'react';
 import { Routes, Route, Navigate, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addComment } from '../redux/ActionCreator';
+import * as ActionTypes from '../redux/ActionTypes';
 
 const mapStateToProps = state => {
   return {
@@ -19,6 +21,20 @@ const mapStateToProps = state => {
     leaders: state.leaders
   }
 }
+const mapDispatchToProps = (dispatch) => {
+
+  return({
+    addComment: (dishId, rating, author, comment) => {
+      dispatch(addComment(dishId, rating, author, comment))
+    }
+  })
+}
+
+/*const mapDispatchToProps = dispatch => (
+  {
+    addComment: (dishId, rating, name, comment) => dispatch(addComment(dishId, rating, name, comment)) 
+  }
+);*/
 
 class Main extends Component{
     constructor(props) {
@@ -36,7 +52,6 @@ class Main extends Component{
   
       const DishWithId = () => {
         const { dishId } = useParams();
-        console.log( dishId);
         return(
             <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(dishId,10))[0]} 
               comments={this.props.comments.filter((comment) => comment.dishId === parseInt(dishId,10))} />
@@ -46,7 +61,8 @@ class Main extends Component{
       const DishDetail = () => { 
         const { dishId } = useParams();
         return( <RenderDishDetails dish={this.props.dishes.filter((dish)=> dish.id === parseInt(dishId,10))[0]} 
-              comments={this.props.comments.filter((comment)=> comment.dishId === parseInt(dishId,10))}/>)}
+              comments={this.props.comments.filter((comment)=> comment.dishId === parseInt(dishId,10))}
+              addComment={this.props.addComment}/>)}
 
   
       return (
@@ -67,4 +83,4 @@ class Main extends Component{
       );
     }
 }
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
