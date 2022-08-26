@@ -10,8 +10,8 @@ import RenderDishDetails from "./DishDetailsComponent";
 import { Component } from 'react';
 import { Routes, Route, Navigate, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment } from '../redux/ActionCreator';
-import * as ActionTypes from '../redux/ActionTypes';
+import { addComment, fetchDishes } from '../redux/ActionCreator';
+
 
 const mapStateToProps = state => {
   return {
@@ -26,26 +26,27 @@ const mapDispatchToProps = (dispatch) => {
   return({
     addComment: (dishId, rating, author, comment) => {
       dispatch(addComment(dishId, rating, author, comment))
-    }
+    }, 
+    fetchDishes: () => {dispatch(fetchDishes())}
   })
 }
-
-/*const mapDispatchToProps = dispatch => (
-  {
-    addComment: (dishId, rating, name, comment) => dispatch(addComment(dishId, rating, name, comment)) 
-  }
-);*/
 
 class Main extends Component{
     constructor(props) {
       super(props);
     }
 
-
+    componentDidMount()
+    {
+      console.log("mounted");
+      this.props.fetchDishes();
+    }
 
     render() {
       const HomePage = (
-        <Home dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+        <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+        dishesErrMess = {this.props.dishes.errMess}
+        dishesLoading = {this.props.dishes.isLoading}
         promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
         leader={this.props.leaders.filter((leader) => leader.featured)[0]}/>
       ) 
@@ -53,14 +54,16 @@ class Main extends Component{
       const DishWithId = () => {
         const { dishId } = useParams();
         return(
-            <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(dishId,10))[0]} 
+            <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(dishId,10))[0]} 
               comments={this.props.comments.filter((comment) => comment.dishId === parseInt(dishId,10))} />
         );
       };
 
       const DishDetail = () => { 
         const { dishId } = useParams();
-        return( <RenderDishDetails dish={this.props.dishes.filter((dish)=> dish.id === parseInt(dishId,10))[0]} 
+        return( <RenderDishDetails dish={this.props.dishes.dishes.filter((dish)=> dish.id === parseInt(dishId,10))[0]} 
+              errMess = {this.props.dishes.errMess}
+              isLoading = {this.props.dishes.isLoading}
               comments={this.props.comments.filter((comment)=> comment.dishId === parseInt(dishId,10))}
               addComment={this.props.addComment}/>)}
 
@@ -72,7 +75,8 @@ class Main extends Component{
             <Routes>
               <Route path='/home' element={HomePage} />
               <Route path='/aboutus' element={<About leaders={this.props.leaders} />} />
-              <Route path='/menu' element={<Menu dishes={this.props.dishes} />} />
+              <Route path='/menu' element={<Menu dishes={this.props.dishes.dishes} errMess = {this.props.dishes.errMess}
+              isLoading = {this.props.dishes.isLoading}/>} />
               <Route path='/menu/:dishId' element={<DishWithId />} />
               <Route path='/contactus' element={<Contact />} />
               <Route path="/*" element={<Navigate to="/home" />} />
