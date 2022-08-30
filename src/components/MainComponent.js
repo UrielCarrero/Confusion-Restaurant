@@ -9,7 +9,7 @@ import RenderDishDetails from "./DishDetailsComponent";
 import { Component } from 'react';
 import { Routes, Route, Navigate, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreator';
+import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreator';
 import {actions} from 'react-redux-form';
 
 
@@ -24,8 +24,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
 
   return({
-    addComment: (dishId, rating, author, comment) => {
-      dispatch(addComment(dishId, rating, author, comment))
+    postComment: (dishId, rating, author, comment) => {
+      dispatch(postComment(dishId, rating, author, comment))
     }, 
     fetchDishes: () => {dispatch(fetchDishes())},
     fetchPromos: () => {dispatch(fetchPromos())},
@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch) => {
 class Main extends Component{
     constructor(props) {
       super(props);
-      console.log(this.props.promotions)
     }
 
     componentDidMount()
@@ -53,7 +52,7 @@ class Main extends Component{
         dishesErrMess = {this.props.dishes.errmess}
         dishesLoading = {this.props.dishes.isLoading}
         promotion={this.props.promotions.promos.filter((promo) => promo.featured)[0]}
-        promosErrMess = {this.props.promotions.errMess}
+        promosErrMess = {this.props.promotions.errmess}
         promosisLoading={this.props.promotions.isLoading}
         leader={this.props.leaders.filter((leader) => leader.featured)[0]}/>
       ) 
@@ -73,7 +72,7 @@ class Main extends Component{
               isLoading = {this.props.dishes.isLoading}
               comments={this.props.comments.comments.filter((comment)=> comment.dishId === parseInt(dishId,10))}
               commentsErrMess = {this.props.comments.errmess}
-              addComment={this.props.addComment}/>)}
+              postComment={this.props.postComment}/>)}
 
   
       return (
@@ -83,7 +82,7 @@ class Main extends Component{
             <Routes>
               <Route path='/home' element={HomePage} />
               <Route path='/aboutus' element={<About leaders={this.props.leaders} />} />
-              <Route path='/menu' element={<Menu dishes={this.props.dishes.dishes} errMess = {this.props.dishes.errMess}
+              <Route path='/menu' element={<Menu dishes={this.props.dishes.dishes} errMess = {this.props.dishes.errmess}
               isLoading = {this.props.dishes.isLoading}/>} />
               <Route path='/menu/:dishId' element={<DishWithId />} />
               <Route path='/contactus' element={<Contact resetFeedback={this.props.resetFeedback}/>} />

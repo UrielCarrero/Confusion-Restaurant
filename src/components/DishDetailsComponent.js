@@ -70,7 +70,7 @@ class RenderDishDetails extends Component
     handleSubmit(values)
     {
         alert(JSON.stringify(values));
-        this.props.addComment(this.props.dish.id, values.rating, values.name, values.comment);
+        this.props.postComment(this.props.dish.id, values.rating, values.name, values.comment);
         this.toggleModal();
     }
 
