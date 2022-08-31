@@ -9,9 +9,10 @@ import RenderDishDetails from "./DishDetailsComponent";
 import { Component } from 'react';
 import { Routes, Route, Navigate, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreator';
-import {actions} from 'react-redux-form';
-
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders, postFeedback } from '../redux/ActionCreator';
+import { actions } from 'react-redux-form';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+ 
 
 const mapStateToProps = state => {
   return {
@@ -27,9 +28,11 @@ const mapDispatchToProps = (dispatch) => {
     postComment: (dishId, rating, author, comment) => {
       dispatch(postComment(dishId, rating, author, comment))
     }, 
+    postFeedback: (feedback) => {dispatch(postFeedback(feedback))},
     fetchDishes: () => {dispatch(fetchDishes())},
     fetchPromos: () => {dispatch(fetchPromos())},
     fetchComments: () => {dispatch(fetchComments())},
+    fetchLeaders: () => {dispatch(fetchLeaders())},
     resetFeedback: () => {dispatch(actions.reset('feedback'))}
   })
 }
@@ -44,6 +47,7 @@ class Main extends Component{
       this.props.fetchDishes();
       this.props.fetchComments();
       this.props.fetchPromos();
+      this.props.fetchLeaders();
     }
 
     render() {
@@ -54,16 +58,10 @@ class Main extends Component{
         promotion={this.props.promotions.promos.filter((promo) => promo.featured)[0]}
         promosErrMess = {this.props.promotions.errmess}
         promosisLoading={this.props.promotions.isLoading}
-        leader={this.props.leaders.filter((leader) => leader.featured)[0]}/>
+        leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+        leadersErrMess = {this.props.leaders.errmess}
+        leadersisLoading={this.props.leaders.isLoading}/>
       ) 
-  
-      const DishWithId = () => {
-        const { dishId } = useParams();
-        return(
-            <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(dishId,10))[0]} 
-              comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(dishId,10))} />
-        );
-      };
 
       const DishDetail = () => { 
         const { dishId } = useParams();
@@ -74,20 +72,26 @@ class Main extends Component{
               commentsErrMess = {this.props.comments.errmess}
               postComment={this.props.postComment}/>)}
 
-  
+      const AboutUs = () =>{
+        return(<About leaders={this.props.leaders.leaders} 
+                      errMess={this.props.leaders.errmess}
+                      isLoading={this.props.leaders.isLoading}/>)
+      }
+
       return (
         <div>
           <Header />
-          <div>
-            <Routes>
-              <Route path='/home' element={HomePage} />
-              <Route path='/aboutus' element={<About leaders={this.props.leaders} />} />
-              <Route path='/menu' element={<Menu dishes={this.props.dishes.dishes} errMess = {this.props.dishes.errmess}
-              isLoading = {this.props.dishes.isLoading}/>} />
-              <Route path='/menu/:dishId' element={<DishWithId />} />
-              <Route path='/contactus' element={<Contact resetFeedback={this.props.resetFeedback}/>} />
-              <Route path="/*" element={<Navigate to="/home" />} />
-            </Routes>
+          <div>  
+          <Routes>
+            <Route path='/home' element={HomePage} />
+            <Route path='/aboutus' element={<AboutUs  />} />
+            <Route path='/menu' element={<Menu dishes={this.props.dishes.dishes} errMess = {this.props.dishes.errmess}
+            isLoading = {this.props.dishes.isLoading}/>} />
+            <Route path='/menu/:dishId' element={<DishDetail />} />
+            <Route path='/contactus' element={<Contact resetFeedback={this.props.resetFeedback} postFeedback={this.props.postFeedback}/>} />
+            <Route path="/*" element={<Navigate to="/home" />} />
+          </Routes>
+
           </div>
           <Footer />
         </div>

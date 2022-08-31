@@ -18,8 +18,8 @@ class Contact extends Component {
     }
 
     handleSubmit(values) {
-        alert(JSON.stringify(values));
-        console.log(this.props)
+        
+        this.props.postFeedback(values);
         this.props.resetFeedback();
     }
 
@@ -59,7 +59,7 @@ class Contact extends Component {
                     <div className="col-12 col-sm-6 offset-sm-1">
                         <h5>Map of our Location</h5>
                     </div>
-                    <div className="col-12 col-sm-11 offset-sm-1">
+                    <div className="col-12 col-sm-11 offset-sm-1 mb-2">
                         <div className="btn-group" role="group">
                             <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
                             <a role="button" className="btn btn-info"><i className="fa fa-skype"></i> Skype</a>
@@ -74,7 +74,7 @@ class Contact extends Component {
                                 <Label htmlFor="firstname" md={2}>Fist Name</Label>
                                 <Col md={10}>
                                     <Control.text model=".firstname" id="firstname" name="firstname" 
-                                    placeholder="First Name" className="form-control"
+                                    placeholder="First Name" className="form-control m-1"
                                     validators={{
                                         required, minLength: minLength(3), maxLength: maxLength(15)
                                     }}
@@ -84,9 +84,9 @@ class Contact extends Component {
                                     model=".firstname"
                                     show="touched"
                                     messages={{
-                                        required: "This field is mandatory.",
-                                        minLength: "The name should contain at least 3 characters.",
-                                        maxLength: "The name should be shorter than 15 characters."
+                                        required: "This field is mandatory. ",
+                                        minLength: "The name should contain at least 3 characters. ",
+                                        maxLength: "The name should be shorter than 15 characters. "
                                     }}
                                 ></Errors>
                             </Row>
@@ -94,7 +94,7 @@ class Contact extends Component {
                                 <Label htmlFor="lastname" md={2}>Last Name</Label>
                                 <Col md={10}>
                                     <Control.text model=".lastname" id="lastname" name="lastname" 
-                                    placeholder="Last Name" className="form-control" validators={{
+                                    placeholder="Last Name" className="form-control m-1" validators={{
                                         required, minLength: minLength(3), maxLength: maxLength(15)
                                     }}
                                     />
@@ -103,9 +103,9 @@ class Contact extends Component {
                                     model=".lastname"
                                     show="touched"
                                     messages={{
-                                        required: "This field is mandatory.",
-                                        minLength: "The last name should contain at least 3 characters.",
-                                        maxLength: "The last name should be shorter than 15 characters."
+                                        required: "This field is mandatory. ",
+                                        minLength: "The last name should contain at least 3 characters. ",
+                                        maxLength: "The last name should be shorter than 15 characters. "
                                     }}
                                 ></Errors>
                             </Row>
@@ -113,7 +113,7 @@ class Contact extends Component {
                                 <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
                                     <Control.text model=".telnum" id="telnum" name="telnum" 
-                                    placeholder="Tel. Number" className="form-control" 
+                                    placeholder="Tel. Number" className="form-control m-1" 
                                     validators={{
                                         required, minLength: minLength(3), maxLength: maxLength(15), isNumber
                                     }}
@@ -123,10 +123,10 @@ class Contact extends Component {
                                     model=".telnum"
                                     show="touched"
                                     messages={{
-                                        required: "This field is mandatory.",
-                                        minLength: "The number should contain at least 3 characters.",
-                                        maxLength: "The number should be shorter than 15 characters.",
-                                        isNumber: "This field only accepts numbers."
+                                        required: "This field is mandatory. ",
+                                        minLength: "The number should contain at least 3 characters. ",
+                                        maxLength: "The number should be shorter than 15 characters. ",
+                                        isNumber: "This field only accepts numbers. "
                                     }}
                                 ></Errors>
                             </Row>
@@ -134,7 +134,7 @@ class Contact extends Component {
                                 <Label htmlFor="email" md={2}>Email</Label>
                                 <Col md={10}>
                                     <Control.text model=".email" id="email" name="email" 
-                                    placeholder="Email" className="form-control"
+                                    placeholder="Email" className="form-control m-1"
                                     validators={{
                                         required, validEmail
                                     }}
@@ -155,14 +155,14 @@ class Contact extends Component {
                                         <Label check>
                                             <Control.checkbox model=".agree"
                                                 name="agree"
-                                                className='form-check-input'/> {' '}
+                                                className='form-check-input m-1'/> {' '}
                                             <strong>May we contact you?</strong>
                                         </Label>
                                     </div>
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
                                     <Control.select model=".contactType" name="contactType"
-                                    className='form-control'>
+                                    className='form-control m-1'>
                                         <option>Tel.</option>
                                         <option>Email</option>
                                     </Control.select >
@@ -172,12 +172,12 @@ class Contact extends Component {
                                 <Label htmlFor="message" md={2}>Your Feedback</Label>
                                 <Col md={10}>
                                     <Control.textarea model=".message" id="message" name="message"
-                                        rows="12" className='form-control'/>
+                                        rows="12" className='form-control m-1'/>
                                 </Col>
                             </Row>  
                             <Row className="form-group">
                                 <Col md={{size: 10, offset: 2}}>
-                                    <Button type="submit" color="primary">
+                                    <Button type="submit" className='m-1' color="primary">
                                         Send Feedback
                                     </Button>
                                 </Col>

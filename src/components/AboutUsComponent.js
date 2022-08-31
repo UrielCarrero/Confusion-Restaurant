@@ -5,13 +5,6 @@ import RenderLeader from './RenderLeaderComponent';
 
 function About(props) {
 
-
-    const leaders = props.leaders.map((leader) => {
-        return (  
-            <RenderLeader leader={leader} />
-        );
-    });
-
     return(
         <div className="container">
             <div className="row">
@@ -51,7 +44,7 @@ function About(props) {
                     <Card>
                         <CardBody className="bg-faded">
                             <blockquote className="blockquote">
-                                <p className="mb-0">You better cut the pizza in four pieces because
+                                <p className="mb-3">You better cut the pizza in four pieces because
                                     I'm not hungry enough to eat six.</p>
                                 <footer className="blockquote-footer">Yogi Berra,
                                 <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
@@ -67,9 +60,7 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
-                        {leaders}
-                    </Media>
+                    <RenderLeader leaders={props.leaders} isLoading={props.isLoading} errMess={props.errMess}/>
                 </div>
             </div>
         </div>

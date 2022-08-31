@@ -40,7 +40,7 @@ function RenderCard({item,isLoading,errMess})
 
 function HomePage(props)
 {
-
+    console.log(props);
 
     return(
         <div className="container">
@@ -52,7 +52,7 @@ function HomePage(props)
                     <RenderCard item={props.promotion} errMess ={props.promosErrMess} isLoading={props.promosisLoading} />
                 </div>
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.leader} errMess ={null} isLoading={null} />
+                    <RenderCard item={props.leader} errMess ={props.leadersErrMess} isLoading={props.leadersisLoading} />
                 </div>
             </div>
         </div>
