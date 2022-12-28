@@ -3,7 +3,7 @@ export const DISHES =
         {
         id: 0,
         name:'Uthappizza',
-        image: '/assets/images/uthappizza.png',
+        image: 'https://images.unsplash.com/photo-1615719413546-198b25453f85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=436&q=80',
         category: 'mains',
         label:'Hot',
         price:'4.99',
@@ -13,7 +13,7 @@ export const DISHES =
         {
         id: 1,
         name:'Zucchipakoda',
-        image: '/assets/images/zucchipakoda.png',
+        image: 'https://media.istockphoto.com/id/1343622169/photo/zucchini-onion-skillet.jpg?b=1&s=170667a&w=0&k=20&c=71s4Q5ifgLHBDMgcfLSSz5p1WNVNaKQXiafjt5hJ-5Y=',
         category: 'appetizer',
         label:'',
         price:'1.99',
@@ -23,7 +23,7 @@ export const DISHES =
         {
         id: 2,
         name:'Vadonut',
-        image: '/assets/images/vadonut.png',
+        image: 'https://images.unsplash.com/photo-1609873539821-3b46e00a0313?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80',
         category: 'appetizer',
         label:'New',
         price:'1.99',
@@ -33,7 +33,7 @@ export const DISHES =
         {
         id: 3,
         name:'ElaiCheese Cake',
-        image: '/assets/images/elaicheesecake.png',
+        image: 'https://images.unsplash.com/photo-1567327613485-fbc7bf196198?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
         category: 'dessert',
         label:'',
         price:'2.99',

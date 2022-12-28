@@ -1,0 +1,50 @@
+
+
+.menu__card, .menu__card > a, .menu__card > a > img {
+    height: 100%;
+    
+
+}
+
+.dishmain__container{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.text-end{
+    color: white !important;
+    background-color: rgba(0, 0, 0, 0.518);
+    padding: 5px;
+}
+
+.menu__container{
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 60px;
+}
+
+.card__home>img{
+    max-height: 432px;
+}
+
+.cardshome__container{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.leaderimg__container{
+    height: 100%;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.location__img{
+    width: 50%;
+    border: black 2px solid;
+    margin-bottom: 20px;
+}
+
+.logo__nav{
+    margin-left: 10px ;
+}

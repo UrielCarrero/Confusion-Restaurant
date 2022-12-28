@@ -17,6 +17,5 @@ export const ConfigureStore = () => {
         ...createForms({ feedback: InitialFeedback })
     }),
     applyMiddleware(thunk, logger))
-
     return store;
 }

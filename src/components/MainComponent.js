@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders, postFeedback } from '../redux/ActionCreator';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
- 
+import '../styles/style.css' 
 
 const mapStateToProps = state => {
   return {

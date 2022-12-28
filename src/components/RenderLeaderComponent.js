@@ -30,7 +30,7 @@ const RenderLeader = (props) =>
             return (         
                 <Media className="row">
                     <Media className="col-md-2 col-12">
-                        <Media object className="pull-left" width="75%" src={baseURL + leader.image} alt={leader.name}></Media>
+                        <Media object className="leaderimg__container pull-left" width="75%" src={leader.image} alt={leader.name}></Media>
                     </Media>
                     <Media body className="col-md-10 col-12">
                         <Media className="text-start" heading>{leader.name}</Media>

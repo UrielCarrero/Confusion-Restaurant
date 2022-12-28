@@ -1,6 +1,10 @@
 import * as ActionTypes from './ActionTypes';
 import { baseURL } from '../shared/baseURL';
 import fetch from 'cross-fetch';
+import {DISHES} from '../shared/dishes'
+import {LEADERS} from '../shared/leaders'
+import {COMMENTS} from '../shared/comments'
+import {PROMOTIONS} from '../shared/promotions'
 
 
 export const addComment = (comment) => {
@@ -20,7 +24,9 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) =>
     };
     newComment.date = new Date().toISOString();
     
-    return fetch(baseURL + 'comments', {
+    dispatch(addComment(newComment))
+
+    /*return fetch(baseURL + 'comments', {
         method: "POST",
         body: JSON.stringify(newComment),
         headers: {
@@ -44,7 +50,7 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) =>
     .catch( error => {
         console.log(`Error: ${error}`);
         alert(`Your Comment Wasn't Post - Error: ${error}`);
-    });
+    });*/
 }
 
 export const addFeedback = (feedback) => {
@@ -58,11 +64,12 @@ export const postFeedback = (feedback) => (dispatch) => {
 
     
     var date = new Date().toISOString();
-    alert(date);
     var newFeedback = {...feedback, date: date};
-    alert(JSON.stringify(newFeedback));
+    alert("Succesfully Submited");
 
-    return fetch(baseURL + 'feedback', 
+    dispatch(addFeedback(newFeedback))
+
+    /*return fetch(baseURL + 'feedback', 
                 {method: "POST",
                 body: JSON.stringify(newFeedback),
                 headers: {"Content-Type" : "application/json"},
@@ -83,14 +90,15 @@ export const postFeedback = (feedback) => (dispatch) => {
                 .then(dispatch(addFeedback(feedback)))
                 .then(result => {alert(JSON.stringify(result))})
                 .catch(error => {console.log(`Error : ${error}`)
-                                alert(`Your Feedback Couldn't be Saved`)})
+                                alert(`Your Feedback Couldn't be Saved`)})*/
 }
 
 // Dishes
 export const fetchDishes = () => (dispatch) => {
     //Thunk function
     dispatch(dishesLoading(true));
-    fetch(baseURL + 'dishes')
+    setTimeout(()=>{dispatch(addDishes(DISHES))},1200)
+    /*fetch(baseURL + 'dishes')
         .then(response => {
             if(response.ok){
                 return response;
@@ -105,7 +113,8 @@ export const fetchDishes = () => (dispatch) => {
         .then(result => result.json())
         .then(dishes => dispatch(addDishes(dishes)))
         .catch( error => {console.log("error");
-        dispatch(failedDishes(error.message))});
+        dispatch(failedDishes(error.message))});*/
+
     
 }
 
@@ -132,7 +141,8 @@ export const failedDishes = (errmess) => {
 //Comments
 export const fetchComments = () => (dispatch) => {
     //Thunk
-    fetch(baseURL + 'comments')
+    setTimeout(()=>{dispatch(addComment(COMMENTS))},1200)
+    /*fetch(baseURL + 'comments')
         .then(response => {
             if(response.ok){
                 return response;
@@ -145,7 +155,7 @@ export const fetchComments = () => (dispatch) => {
         })
         .then(result => result.json())
         .then(comments => dispatch(addComments(comments)))
-        .catch(error => dispatch(failedComments(error.message)));
+        .catch(error => dispatch(failedComments(error.message)));*/
     
 }
 
@@ -167,7 +177,8 @@ export const failedComments = (errmess) => {
 export const fetchPromos = () => (dispatch) => {
     //Thunk function
     dispatch(promosLoading(true));
-    fetch(baseURL + 'promotions')
+    setTimeout(()=>{dispatch(addPromos(PROMOTIONS))},1200)
+    /*fetch(baseURL + 'promotions')
         .then(response => {
                 if(response.ok){
                     return response;
@@ -180,7 +191,8 @@ export const fetchPromos = () => (dispatch) => {
             })
         .then(result => result.json())
         .then(promos => dispatch(addPromos(promos)))
-        .catch(error => dispatch(failedPromos(error.message)));
+        .catch(error => dispatch(failedPromos(error.message)));*/
+        
     
 }
 
@@ -209,7 +221,8 @@ export const failedPromos = (errmess) => {
 export const fetchLeaders = () => (dispatch) => {
     //thunk
     dispatch(loadingLeaders(true));
-    return fetch(baseURL + 'leaders')
+    setTimeout(()=>{dispatch(addLeaders(LEADERS))},1200)
+    /*return fetch(baseURL + 'leaders')
             .then(response => {
                 if(response.ok)
                 {
@@ -225,7 +238,7 @@ export const fetchLeaders = () => (dispatch) => {
             error => {throw error})
             .then(response => response.json())
             .then(response => dispatch(addLeaders(response)))
-            .catch(error => dispatch(failedLeaders(error)))
+            .catch(error => dispatch(failedLeaders(error)))*/
 }
 
 export const addLeaders = (leaders) => {

@@ -44,6 +44,7 @@ class Contact extends Component {
                 <div className="row row-content">
                     <div className="col-12">
                     <h3>Location Information</h3>
+                    
                     </div>
                     <div className="col-12 col-sm-4 offset-sm-1">
                             <h5>Our Address</h5>
@@ -58,6 +59,7 @@ class Contact extends Component {
                     </div>
                     <div className="col-12 col-sm-6 offset-sm-1">
                         <h5>Map of our Location</h5>
+                        <img className='location__img' src='https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80' />
                     </div>
                     <div className="col-12 col-sm-11 offset-sm-1 mb-2">
                         <div className="btn-group" role="group">

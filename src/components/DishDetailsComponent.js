@@ -17,9 +17,9 @@ const RenderDish = ({dish}) => {
         return(
 
             <Card className="card">
-            <CardImg className="card-top-image" top src={baseURL + dish.image} alt={dish.name} />
+            <CardImg className="card-top-image" top src={dish.image} alt={dish.name} />
             <CardBody className="card body">
-                <CardTitle className="card-title font-weight-bold">{dish.name}</CardTitle>
+                <CardTitle className="card-title font-weight-bold"><strong>{dish.name}</strong></CardTitle>
                 <CardText className="text-start">{dish.description}</CardText>
             </CardBody>
             </Card>  

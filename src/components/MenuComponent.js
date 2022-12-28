@@ -29,11 +29,11 @@ const Menu = (props) => {
     else {
         const menu = props.dishes.map((dish) => {
             return (   
-                <div  className="col-12 col-md-5 m-1">
+                <div  className="dishmain__container col-12 col-md-5 m-1">
 
-                        <Card className="card">
+                        <Card className="menu__card card">
                             <Link to={`/menu/${dish.id}`} >
-                                <CardImg width="100%" src={baseURL + dish.image} alt={dish.name} />
+                                <CardImg height="100%" width="100%" src={dish.image} alt={dish.name} />
                                 <CardImgOverlay>
                                     <CardTitle className="text-end text-dark"><strong>{dish.name}</strong></CardTitle>
                                 </CardImgOverlay>
@@ -61,7 +61,7 @@ const Menu = (props) => {
                     </div>
                 </div>
                     
-                <div className="row">
+                <div className="menu__container row">
                     {menu}        
                 </div>
             </div>   
